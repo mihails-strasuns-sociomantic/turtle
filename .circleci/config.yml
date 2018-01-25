@@ -22,6 +22,9 @@ templates:
             name: Upload code coverage report
             command: bash <(curl -s https://codecov.io/bash)
     job: &job-template
+        filters:
+            tags:
+                ignore: /.*\+d2$/
 
 workflows:
     version: 2
