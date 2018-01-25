@@ -22,9 +22,6 @@ templates:
             name: Upload code coverage report
             command: bash <(curl -s https://codecov.io/bash)
     job: &job-template
-        filters:
-            tags:
-                ignore: /.*\+d2$/
 
 workflows:
     version: 2
@@ -39,7 +36,6 @@ workflows:
         - test-2.077-upstream-devel: *job-template
         - test-2.077-upstream-prod: *job-template
         - d2tag:
-            <<: *job-template
             context: org-global
             requires:
             - test-2.070-devel
@@ -49,6 +45,8 @@ workflows:
             - test-2.077-upstream-devel
             - test-2.077-upstream-prod
             filters:
+                tags:
+                    ignore: /.*\+d2$/
                 branches:
                     ignore: /.*/
 
